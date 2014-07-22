@@ -1,0 +1,12 @@
+.card{ data: {options: card.options.join(' ')}, id: card.multiverseid }
+  .card-actions
+    - if signed_in?
+      - if current_user.has?(card)
+        = link_to '', remove_card_path(card: card.multiverseid), class: "glyphicon glyphicon-remove", title: 'Remove from Binder', remote: true, method: :delete
+      - else
+        = link_to '', add_card_path(card: card.multiverseid), class: "glyphicon glyphicon-ok", title: 'Add to Binder', remote: true, method: :post
+    = link_to '', '', class: "glyphicon glyphicon-search zoom", title: 'Zoom', remote: true
+  .front
+    =image_tag("#{Rails.configuration.image_host}/#{card.set_name.downcase}/#{card.imageName}.jpg")
+  .back
+    =image_tag("https://cardbinder.s3.amazonaws.com/magic/back.jpg")

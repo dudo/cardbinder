@@ -1,0 +1,82 @@
+.symbol {
+  &.set {
+    max-height: 20px;
+  }
+  &.type, &.color {
+    max-height: 40px;
+  }
+}
+
+ul#select-set {
+  font-size: 0px;
+  overflow: hidden;
+  white-space: nowrap;
+  float: none;
+  li {
+    display: inline-block;
+    float: none;
+    a {
+      padding-right: 5px;
+      padding-left: 5px;
+    }
+  }
+}
+
+// entire container, keeps perspective
+div#select-menu {
+  position: relative;
+  perspective: 1000;
+  width: 440px;
+  margin: 0px auto;
+  &.flip .menu {
+    transform: rotateX(180deg);
+  }
+   // flip speed goes here
+  .menu {
+    transition: 0.3s ease-in;
+    transform-style: preserve-3d;
+    margin: 0px;
+    position: relative;
+    height: 72px;
+     // front pane, placed above back
+    #color {
+      z-index: 3;
+    }
+     // back, initially hidden pane
+    #type {
+      z-index: 2;
+      transform: rotateX(180deg);
+    }
+     // hide back of pane during swap
+    #color, #type {
+      backface-visibility: hidden;
+      position: absolute;
+      .navbar-collapse { padding-left: 0px; }
+      li {
+        a {
+          padding-right: 5px;
+          padding-left: 5px;
+        }
+      }
+      width: 100%;
+    }
+  }
+  a.select-card {
+    >img { opacity: 0.5; }
+    &.selected img { opacity: 1; }
+  }
+}
+
+.sticky-wrapper {
+  #select-menu.stuck {
+    position: fixed;
+    top: 0px;
+    left: 50%;
+    margin-left: -220px;
+    z-index: 90;
+    .navbar {
+      border-top-right-radius: 0px;
+      border-top-left-radius: 0px;
+    }
+  }
+}

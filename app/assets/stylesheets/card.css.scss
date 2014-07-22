@@ -1,0 +1,74 @@
+// entire container, keeps perspective
+li.sleeve {
+  position: relative;
+  display: inline-block;
+  margin: 5px;
+  width: 240px;
+  height: 340px;
+  perspective: 1000;
+  &.flip {
+    z-index: 99;
+    &.normal {
+      .card {
+        transform: rotateY(360deg) scale(2);
+      }
+    }
+    &.split {
+      .card {
+        transform: rotateY(360deg) rotate(90deg) scale(2);
+      }
+    }
+  }
+   // flip speed goes here
+  .card {
+    height: 100%;
+    transition: transform 1s ease-in;
+    transform-style: preserve-3d;
+    position: relative;
+     // front pane, placed above back
+    .front {
+      z-index: 3;
+    }
+     // back, initially hidden pane
+    .back {
+      z-index: 2;
+      transform: rotateY(180deg);
+    }
+     // hide back of pane during swap
+    .front, .back {
+      backface-visibility: hidden;
+      position: absolute;
+    }
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+ul.binder {
+  text-align: center;
+  padding: 0px;
+  margin: 20px;
+  font-size: 0px;
+}
+
+.card-actions {
+  backface-visibility: hidden;
+  position: absolute;
+  z-index: 4;
+  margin: 70px auto 0px 49px;
+  .glyphicon {
+    padding: 10px;
+    font-size: 50px;
+    font-weight: bold;
+    color: white;
+    opacity: 0.5;
+    cursor: pointer;
+    &:hover, &:focus {
+      opacity: 1;
+      text-decoration: none;
+      color: white;
+    }
+  }
+}

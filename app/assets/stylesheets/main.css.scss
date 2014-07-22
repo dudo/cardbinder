@@ -1,0 +1,24 @@
+// keeps footer stuck to bottom
+html, body {
+  height: 100%;
+  .wrapper {
+    min-height: 100%;
+    padding-top: 20px;
+  }
+  header {
+    // margin-top: 20px;
+  }
+  footer {
+    margin: -72px auto 0 auto;
+  }
+  .content {
+    padding-bottom: 90px;
+  }
+}
+
+.debug_dump {
+  position: absolute;
+  bottom: 82px;
+  float: left;
+  display: none;
+}

@@ -1,0 +1,44 @@
+$(document).on 'ready page:load', ->
+  $('.card-menu-toggle').on 'click', (e) ->
+    e.preventDefault()
+    $('div#select-menu').toggleClass 'flip'
+
+  $('a.select-card').on 'click', (e) ->
+    current_pick = $(this)
+    current_pick.toggleClass 'selected'
+    current_pick.parent('li').toggleClass 'active'
+    e.preventDefault()
+    selected = []
+    $('a.select-card.selected').each ->
+      selected.push $(this).data('pick')
+    $('li.sleeve').each ->
+      card = $(this).children('.card')
+      if (selected.every (sel) -> sel in card.data('options').split(' '))
+        $(this).show()
+      else
+        $(this).hide()
+
+  $('li.sleeve a.zoom').on 'click', ->
+    $(this).parents('li').toggleClass('flip')
+
+  $('#select-menu').waypoint('sticky');
+
+  $('#select-set').one 'mouseenter', ->
+    $gal = $('#select-set')
+    galW = $gal.outerWidth(true)
+    galSW = $gal[0].scrollWidth
+    wDiff = (galSW / galW) - 1
+    mPadd = 100
+    damp = 20
+    mX = 0
+    mX2 = 0
+    posX = 0
+    mmAA = galW - (mPadd * 2)
+    mmAAr = galW / mmAA
+    $('#select-set').on 'mousemove', (e) ->
+      mX = e.pageX - $(this).parent().offset().left - @offsetLeft
+      mX2 = Math.min(Math.max(0, mX - mPadd), mmAA) * mmAAr
+    setInterval (->
+      posX += (mX2 - posX) / damp
+      $gal.scrollLeft posX * wDiff
+    ), 10

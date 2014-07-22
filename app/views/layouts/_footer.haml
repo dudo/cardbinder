@@ -1,0 +1,16 @@
+%footer.container.navbar.navbar-default{role: 'navigation'}
+  // Brand and toggle get grouped for better mobile display
+  .navbar-header
+    = button_tag data: {target: '#bottom-collapse', toggle: 'collapse'}, class: 'navbar-toggle' do
+      %span.sr-only Toggle navigation
+      %span.icon-bar
+      %span.icon-bar
+      %span.icon-bar
+    = link_to 'Home', root_url, class: 'navbar-brand'
+  // Collect the nav links, forms, and other content for toggling
+  .collapse.navbar-collapse#bottom-collapse
+    %ul.nav.navbar-nav
+      %li= link_to 'About', about_url, title: 'Who are we?'
+      %li= link_to 'Contact', contact_url, title: 'Talk to us!'
+    %ul.nav.navbar-nav.navbar-right
+      %li= link_to '', nil, class: 'back-to-top glyphicon glyphicon-arrow-up', title: 'Top'

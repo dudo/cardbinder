@@ -1,0 +1,1 @@
+$(".card#<%= @card.multiverseid %>").parent('li').html("<%= j render partial: 'cards/card', locals: {card: @card} %>");
