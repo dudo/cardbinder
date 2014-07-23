@@ -79,10 +79,6 @@ production:
       # server setup, and at least 3 for a replica set. Hosts must be
       # an array of host:port pairs. This session is single server.
       uri: <%= ENV['MONGOLAB_URI'] %>
-      # Define the default database name.
-      database: mongoid
-      options:
-        retry_interval: 30
     # This defines a secondary session at a replica set.
     # replica_set:
     #   # This configuration is a 3 node replica set.
