@@ -1,0 +1,28 @@
+#select-card-menu
+  .menu
+    %nav#color.navbar.navbar-default{role: "navigation"}
+      .container-fluid
+        %ul.nav.navbar-nav.navbar-left
+          %li= link_to(image_tag('/assets/mtg_types/white.svg', class: 'symbol color'), nil, class: 'select-card', title: 'Plains', data: {pick: 'W'} )
+          %li= link_to(image_tag('/assets/mtg_types/blue.svg', class: 'symbol color'), nil, class: 'select-card', title: 'Island', data: {pick: 'U'} )
+          %li= link_to(image_tag('/assets/mtg_types/black.svg', class: 'symbol color'), nil, class: 'select-card', title: 'Swamp', data: {pick: 'B'} )
+          %li= link_to(image_tag('/assets/mtg_types/red.svg', class: 'symbol color'), nil, class: 'select-card', title: 'Mountain', data: {pick: 'R'} )
+          %li= link_to(image_tag('/assets/mtg_types/green.svg', class: 'symbol color'), nil, class: 'select-card', title: 'Forest', data: {pick: 'G'} )
+          %li= link_to(image_tag('/assets/mtg_types/snow.svg', class: 'symbol color'), nil, class: 'select-card', title: 'Snow', data: {pick: 'S'} ) if %w(ICE CSP).include?(@card_set.try(:code))
+          %li= link_to(image_tag('/assets/mtg_types/phyrexian.svg', class: 'symbol color'), nil, class: 'select-card', title: 'Phyrexian', data: {pick: 'P'} ) if %w(NPH).include?(@card_set.try(:code))
+          %li= link_to(image_tag('/assets/mtg_sets/TSB.svg', class: 'symbol color'), nil, class: 'select-card', title: 'Timeshifted', data: {pick: 'TSB'} ) if %w(TSP).include?(@card_set.try(:code))
+        %ul.nav.navbar-nav.navbar-right
+          %li= link_to(image_tag('/assets/mtg_types/tap.svg', class: 'symbol type'), nil, title: 'Types', class: 'card-menu-toggle' )
+
+    %nav#type.navbar.navbar-default{role: "navigation"}
+      .container-fluid
+        %ul.nav.navbar-nav.navbar-left
+          %li= link_to(image_tag('/assets/mtg_types/land.svg', class: 'symbol type'), nil, class: 'select-card', title: 'Land', data: {pick: 'land'} )
+          %li= link_to(image_tag('/assets/mtg_types/creature.svg', class: 'symbol type'), nil, class: 'select-card', title: 'Creature', data: {pick: 'creature'} )
+          %li= link_to(image_tag('/assets/mtg_types/artifact.svg', class: 'symbol type'), nil, class: 'select-card', title: 'Artifact', data: {pick: 'artifact'} )
+          %li= link_to(image_tag('/assets/mtg_types/sorcery.svg', class: 'symbol type'), nil, class: 'select-card', title: 'Sorcery', data: {pick: 'sorcery'} )
+          %li= link_to(image_tag('/assets/mtg_types/instant.svg', class: 'symbol type'), nil, class: 'select-card', title: 'Instant', data: {pick: 'instant'} )
+          %li= link_to(image_tag('/assets/mtg_types/enchantment.svg', class: 'symbol type'), nil, class: 'select-card', title: 'Enchantment', data: {pick: 'enchantment'} )
+          %li= link_to(image_tag('/assets/mtg_types/planeswalker.svg', class: 'symbol type'), nil, class: 'select-card', title: 'Planeswalker', data: {pick: 'planeswalker'} )
+        %ul.nav.navbar-nav.navbar-right
+          %li= link_to(image_tag('/assets/mtg_types/untap.svg', class: 'symbol type'), nil, title: 'Colors', class: 'card-menu-toggle' )

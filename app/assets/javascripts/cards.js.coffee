@@ -1,7 +1,7 @@
 $(document).on 'ready page:load', ->
   $('.card-menu-toggle').on 'click', (e) ->
     e.preventDefault()
-    $('div#select-menu').toggleClass 'flip'
+    $('div#select-card-menu').toggleClass 'flip'
 
   $('a.select-card').on 'click', (e) ->
     current_pick = $(this)
@@ -21,10 +21,14 @@ $(document).on 'ready page:load', ->
   $('li.sleeve a.zoom').on 'click', ->
     $(this).parents('li').toggleClass('flip')
 
-  $('#select-menu').waypoint('sticky');
+  $('#select-card-menu').waypoint('sticky');
 
-  $('#select-set').one 'mouseenter', ->
-    $gal = $('#select-set')
+  $('li .card .front img').waypoint (->
+    $(this).attr 'src', $(this).data('src')
+  ), offset: '125%'
+
+  $('#select-set-menu').one 'mouseenter', ->
+    $gal = $('#select-set-menu')
     galW = $gal.outerWidth(true)
     galSW = $gal[0].scrollWidth
     wDiff = (galSW / galW) - 1
@@ -35,7 +39,7 @@ $(document).on 'ready page:load', ->
     posX = 0
     mmAA = galW - (mPadd * 2)
     mmAAr = galW / mmAA
-    $('#select-set').on 'mousemove', (e) ->
+    $('#select-set-menu').on 'mousemove', (e) ->
       mX = e.pageX - $(this).parent().offset().left - @offsetLeft
       mX2 = Math.min(Math.max(0, mX - mPadd), mmAA) * mmAAr
     setInterval (->

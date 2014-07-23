@@ -56,8 +56,10 @@ ul.binder {
 .card-actions {
   backface-visibility: hidden;
   position: absolute;
+  left: 0px;
+  right: 0px;
   z-index: 4;
-  margin: 70px auto 0px 49px;
+  margin: 70px auto 0px auto;
   .glyphicon {
     padding: 10px;
     font-size: 50px;

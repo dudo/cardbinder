@@ -7,7 +7,7 @@
   }
 }
 
-ul#select-set {
+ul#select-set-menu {
   font-size: 0px;
   overflow: hidden;
   white-space: nowrap;
@@ -23,7 +23,7 @@ ul#select-set {
 }
 
 // entire container, keeps perspective
-div#select-menu {
+div#select-card-menu {
   position: relative;
   perspective: 1000;
   width: 440px;
@@ -38,6 +38,7 @@ div#select-menu {
     margin: 0px;
     position: relative;
     height: 72px;
+    .navbar-nav.navbar-right:last-child { margin-right: 0px; }
      // front pane, placed above back
     #color {
       z-index: 3;
@@ -51,8 +52,10 @@ div#select-menu {
     #color, #type {
       backface-visibility: hidden;
       position: absolute;
-      .navbar-collapse { padding-left: 0px; }
+      ul.navbar-left { float: left; font-size: 0; margin: 0; }
+      ul.navbar-right { float: right; font-size: 0; margin: 0; }
       li {
+        display: inline-block;
         a {
           padding-right: 5px;
           padding-left: 5px;
@@ -68,7 +71,7 @@ div#select-menu {
 }
 
 .sticky-wrapper {
-  #select-menu.stuck {
+  #select-card-menu.stuck {
     position: fixed;
     top: 0px;
     left: 50%;
