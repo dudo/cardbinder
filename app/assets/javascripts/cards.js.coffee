@@ -19,10 +19,7 @@ $(document).on 'ready page:load', ->
     current_pick = $(this)
     current_pick.toggleClass 'selected'
     current_pick.parent('li').toggleClass 'active'
-
     $('li .card .front img').waypoint 'destroy'
-    createWaypoints()
-
     selected = []
     $('a.select-card.selected').each ->
       selected.push $(this).data('pick')
@@ -32,6 +29,7 @@ $(document).on 'ready page:load', ->
         $(this).show()
       else
         $(this).hide()
+    createWaypoints()
 
   $('li.sleeve a.zoom').on 'click', ->
     $(this).parents('li').toggleClass('flip')
