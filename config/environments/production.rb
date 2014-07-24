@@ -23,11 +23,11 @@ Rails.application.configure do
   config.serve_static_assets = true
 
   # Compress JavaScripts and CSS.
-  # config.assets.js_compressor = :uglifier
-  # config.assets.css_compressor = :sass
+  config.assets.js_compressor = :uglifier
+  config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
-  # config.assets.compile = true
+  config.assets.compile = true
 
   # Generate digests for assets URLs.
   config.assets.digest = true
@@ -79,6 +79,7 @@ Rails.application.configure do
 
   config.react.variant = :production
 
+  # GLOBAL VARIABLES
   # config.image_host = 'https://cardbinder.s3.amazonaws.com/magic' # personal storage on S3
   config.image_host = 'http://mtgimage.com/setname' # awesome API provided by mtgimage (same as mtgJSON where the main dataset comes from)
 end
