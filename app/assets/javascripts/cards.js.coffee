@@ -1,13 +1,28 @@
 $(document).on 'ready page:load', ->
+  createWaypoints = ->
+    $('li .card .front img:not(.waypoint-loaded)').waypoint (->
+      img = $(this)
+      img.attr('src', img.data('src'))
+         .addClass('waypoint-loaded')
+         .parent().siblings('.card-actions').show()
+    ), offset: '150%', triggerOnce: true
+  createWaypoints()
+
+  $('#select-card-menu').waypoint('sticky');
+
   $('.card-menu-toggle').on 'click', (e) ->
     e.preventDefault()
     $('div#select-card-menu').toggleClass 'flip'
 
   $('a.select-card').on 'click', (e) ->
+    e.preventDefault()
     current_pick = $(this)
     current_pick.toggleClass 'selected'
     current_pick.parent('li').toggleClass 'active'
-    e.preventDefault()
+
+    $('li .card .front img').waypoint 'destroy'
+    createWaypoints()
+
     selected = []
     $('a.select-card.selected').each ->
       selected.push $(this).data('pick')
@@ -20,12 +35,6 @@ $(document).on 'ready page:load', ->
 
   $('li.sleeve a.zoom').on 'click', ->
     $(this).parents('li').toggleClass('flip')
-
-  $('#select-card-menu').waypoint('sticky');
-
-  $('li .card .front img').waypoint (->
-    $(this).attr 'src', $(this).data('src')
-  ), offset: '125%'
 
   $('#select-set-menu').one 'mouseenter', ->
     $gal = $('#select-set-menu')
