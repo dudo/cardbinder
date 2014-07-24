@@ -1,8 +1,8 @@
 <% provide(:title, "Edit user") %>
 <div class='container'>
   <div class="row">
-    <div class="col-lg-8 col-lg-offset-2">
-      <h1 class='col-lg-offset-2'>Update your profile</h1>
+    <div class="col-lg-8 col-lg-offset-2 well">
+      <h1 class='col-lg-offset-2 text-center'>Update your profile</h1>
       <%= form_for @user, html: {class: "form-horizontal", role: "form"} do |f| %>
         <%= render 'fields', f: f %>
         <div class="form-group">
@@ -11,7 +11,7 @@
           </div>
         </div>
       <% end %>
-      <div class='pull-right'>
+      <div>
         <%= gravatar_for @user %>
         <%= link_to 'change', "http://gravatar.com/emails", target: "_blank" %>
       </div>

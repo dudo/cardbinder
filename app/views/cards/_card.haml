@@ -1,4 +1,4 @@
-.card{ data: {options: card.options.join(' ')}, id: card.multiverseid }
+.card{ data: {options: card.options.join(' ').strip}, id: card.multiverseid }
   .card-actions
     - if signed_in?
       - if current_user.has?(card)

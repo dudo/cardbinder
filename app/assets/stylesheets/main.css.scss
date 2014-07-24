@@ -16,6 +16,14 @@ html, body {
   }
 }
 
+body {
+  background: url("https://cardbinder.s3.amazonaws.com/imgs/big_five.jpg") 50% 0% fixed;
+  .well {
+    background-color: rgba(245,245,245,0.7);
+    border: 1px solid rgba(227,227,227,0.7);
+  }
+}
+
 .debug_dump {
   position: absolute;
   bottom: 82px;

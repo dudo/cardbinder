@@ -51,7 +51,7 @@ class Card
     colors = []
     colors += self.subtypes.map{ |c| Card.aliases(c) } if self.subtypes && self.types.map(&:downcase).include?('land')
     colors += self.manaCost.scan(/[A-Z]*/).reject(&:blank?) if self.manaCost
-    colors += self.text.scan(/{\w|\w}/).map{|t| t.delete('{}')}.reject{|t| t == 'T'}.uniq if self.text
+    colors += self.text.scan(/{\w|\w}/).map{|t| t.delete('{}T0123456789')}.uniq if self.text
     colors = colors.uniq
   end
 
