@@ -5,8 +5,8 @@
         = link_to '', remove_card_path(card: card.multiverseid), class: "glyphicon glyphicon-remove", title: 'Remove from Binder', remote: true, method: :delete
       - else
         = link_to '', add_card_path(card: card.multiverseid), class: "glyphicon glyphicon-ok", title: 'Add to Binder', remote: true, method: :post
-    = link_to '', nil, class: "glyphicon glyphicon-search zoom", title: 'Zoom', remote: true
+    %span.glyphicon.glyphicon-search.zoom-in{title: 'Zoom'}
   .front
-    =image_tag('', 'data-src' => "#{Rails.configuration.image_host}/#{card.set_name.downcase}/#{card.imageName}.jpg")
+    =image_tag('', 'data-src' => "#{Rails.configuration.image_host}/#{card.set_name.downcase}/#{card.imageName}.jpg", alt: card.imageName)
   .back
     =image_tag("https://cardbinder.s3.amazonaws.com/magic/back.jpg")

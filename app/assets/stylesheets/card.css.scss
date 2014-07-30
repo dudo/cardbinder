@@ -7,24 +7,29 @@ li.sleeve {
   height: 340px;
   perspective: 1000;
   &.flip {
-    z-index: 99;
     &.normal {
       .card {
-        transform: rotateY(360deg) scale(2);
+        transform: rotateY(360deg);
+        width: 480px;
+        height: 680px;
       }
     }
     &.split {
       .card {
-        transform: rotateY(360deg) rotate(90deg) scale(2);
+        transform: rotateY(360deg) rotate(90deg);
+        width: 480px;
+        height: 680px;
       }
     }
   }
    // flip speed goes here
   .card {
     height: 100%;
-    transition: transform 1s ease-in;
+    width: 100%;
+    transition: all 1s ease-in;
     transform-style: preserve-3d;
     position: relative;
+    perspective: 1000;
      // front pane, placed above back
     .front {
       z-index: 3;

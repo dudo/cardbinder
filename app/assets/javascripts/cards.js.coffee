@@ -24,15 +24,34 @@ $(document).on 'ready page:load', ->
     $('a.select-card.selected').each ->
       selected.push $(this).data('pick')
     $('li.sleeve').each ->
-      card = $(this).children('.card')
-      if (selected.every (sel) -> sel in card.data('options').split(' '))
+      $card = $(this).children('.card')
+      if (selected.every (sel) -> sel in $card.data('options').split(' '))
         $(this).show()
       else
         $(this).hide()
     createWaypoints()
 
-  $('li.sleeve a.zoom').on 'click', ->
-    $(this).parents('li').toggleClass('flip')
+  $('li.sleeve span.zoom-in').on 'click', ->
+    $(this).removeClass('zoom-in').addClass('zoom-out')
+    $(this).parents('li').toggleClass('flip').css('z-index', 99)
+    $card = $(this).parents('.card')
+    offset = $card.offset()
+    $card.animate {
+      top: '-='+(offset.top-30)
+      left: '-='+(offset.left-50)
+    }, 100
+
+  $(document).on 'click', 'li.sleeve span.zoom-out', ->
+    alert 'hi!'
+    $sleeve = $(this).parents('.sleeve')
+    $(this).removeClass('zoom-out').addClass('zoom-in')
+    $sleeve.toggleClass('flip')
+    $card = $(this).parents('.card')
+    $card.animate {
+      top: 0
+      left: 0
+    }, 1000, ->
+      $sleeve.css('z-index', 3)
 
   $('#select-set-menu').one 'mouseenter', ->
     $gal = $('#select-set-menu')
