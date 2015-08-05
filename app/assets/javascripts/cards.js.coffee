@@ -41,8 +41,7 @@ $(document).on 'ready page:load', ->
       left: '-='+(offset.left-50)
     }, 100
 
-  $(document).on 'click', 'li.sleeve span.zoom-out', ->
-    alert 'hi!'
+  $('body').on 'click', 'li.sleeve span.zoom-out', ->
     $sleeve = $(this).parents('.sleeve')
     $(this).removeClass('zoom-out').addClass('zoom-in')
     $sleeve.toggleClass('flip')
