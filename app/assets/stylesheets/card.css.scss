@@ -10,15 +10,11 @@ li.sleeve {
     &.normal {
       .card {
         transform: rotateY(360deg);
-        width: 480px;
-        height: 680px;
       }
     }
     &.split {
       .card {
         transform: rotateY(360deg) rotate(90deg);
-        width: 480px;
-        height: 680px;
       }
     }
   }

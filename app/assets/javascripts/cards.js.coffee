@@ -31,26 +31,17 @@ $(document).on 'ready page:load', ->
         $(this).hide()
     createWaypoints()
 
-  $('li.sleeve span.zoom-in').on 'click', ->
+  $(document).on 'click', 'li.sleeve span.zoom-in', ->
+    $sleeve = $(this).parents('.sleeve')
     $(this).removeClass('zoom-in').addClass('zoom-out')
-    $(this).parents('li').toggleClass('flip').css('z-index', 99)
-    $card = $(this).parents('.card')
-    offset = $card.offset()
-    $card.animate {
-      top: '-='+(offset.top-30)
-      left: '-='+(offset.left-50)
-    }, 100
+    $sleeve.toggleClass('flip').css('z-index', 99)
 
-  $('body').on 'click', 'li.sleeve span.zoom-out', ->
+  $(document).on 'click', 'li.sleeve span.zoom-out', ->
     $sleeve = $(this).parents('.sleeve')
     $(this).removeClass('zoom-out').addClass('zoom-in')
     $sleeve.toggleClass('flip')
     $card = $(this).parents('.card')
-    $card.animate {
-      top: 0
-      left: 0
-    }, 1000, ->
-      $sleeve.css('z-index', 3)
+    $sleeve.css('z-index', 3)
 
   $('#select-set-menu').one 'mouseenter', ->
     $gal = $('#select-set-menu')

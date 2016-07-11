@@ -9,7 +9,6 @@ gem 'rails', '4.1.4'
 # gem 'pg'
 
 gem 'mongoid'
-gem 'react-rails', '~> 1.0.0.pre', github: 'reactjs/react-rails'
 
 # Use SCSS and bootstrap for stylesheets
 gem 'bootstrap-sass', '~> 3.2.0'
