@@ -117,4 +117,3 @@ production:
     raise_not_found_error: false
     # use_activesupport_time_zone: false
     use_utc: true
-    connect_timeout: 15
