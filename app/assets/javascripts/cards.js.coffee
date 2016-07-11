@@ -30,17 +30,9 @@ $(document).on 'ready page:load', ->
         $(this).hide()
     createWaypoints()
 
-  $(document).on 'click', 'li.sleeve span.zoom-in', ->
+  $(document).on 'click', 'li.sleeve span.flipper', ->
     $sleeve = $(this).parents('.sleeve')
-    $(this).removeClass('zoom-in').addClass('zoom-out')
-    $sleeve.toggleClass('flip').css('z-index', 99)
-
-  $(document).on 'click', 'li.sleeve span.zoom-out', ->
-    $sleeve = $(this).parents('.sleeve')
-    $(this).removeClass('zoom-out').addClass('zoom-in')
     $sleeve.toggleClass('flip')
-    $card = $(this).parents('.card')
-    $sleeve.css('z-index', 3)
 
   $('#select-set-menu').one 'mouseenter', ->
     $gal = $('#select-set-menu')

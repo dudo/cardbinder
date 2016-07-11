@@ -1,11 +1,11 @@
+.card-actions
+  - if signed_in?
+    - if current_user.has?(card)
+      = link_to '', remove_card_path(card: card.multiverseid), class: "glyphicon glyphicon-remove", title: 'Remove from Binder', remote: true, method: :delete
+    - else
+      = link_to '', add_card_path(card: card.multiverseid), class: "glyphicon glyphicon-ok", title: 'Add to Binder', remote: true, method: :post
+  %span.glyphicon.glyphicon-share-alt.flipper{title: 'Flip'}
 .card{ data: {options: card.options.join(' ').strip}, id: card.multiverseid }
-  .card-actions
-    - if signed_in?
-      - if current_user.has?(card)
-        = link_to '', remove_card_path(card: card.multiverseid), class: "glyphicon glyphicon-remove", title: 'Remove from Binder', remote: true, method: :delete
-      - else
-        = link_to '', add_card_path(card: card.multiverseid), class: "glyphicon glyphicon-ok", title: 'Add to Binder', remote: true, method: :post
-    %span.glyphicon.glyphicon-search.zoom-in{title: 'Zoom'}
   .front
     - img = "#{Rails.configuration.image_host}/#{card.set_name.downcase}/#{card.imageName}.jpg"
     =image_tag("#{img if show_image ||= false}", 'data-src' => img, alt: card.imageName)
