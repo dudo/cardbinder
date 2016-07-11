@@ -56,7 +56,14 @@ class Card
   end
 
   def options
-    self.colors + self.types.map(&:downcase) + [self.set_code]
+    self.colors + self.types.map(&:downcase) + [self.set_code] + [self.rarity.downcase]
+  end
+
+  def rarity_colors
+    #b02911
+    #83703d
+    #474e51
+    #000000
   end
 
 end
