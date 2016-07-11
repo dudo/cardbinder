@@ -34,7 +34,7 @@ class Card
 
   # this is used for the header menu, and almost always available
   def self.sets
-    CardSet.where(type: %w(core expansion)).not_in(CardSet::DONT_HAVE_PICS).order_by([[:releaseDate, :asc]])
+    CardSet.where(type: %w(core expansion)).where.not(code: CardSet::DONT_HAVE_PICS).order_by([[:releaseDate, :asc]])
   end
 
   def self.aliases(a)
