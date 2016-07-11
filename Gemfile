@@ -8,7 +8,7 @@ gem 'rails', '4.1.4'
 # gem 'sqlite3'
 # gem 'pg'
 
-gem 'mongoid', "~> 4.0.0"
+gem 'mongoid'
 gem 'react-rails', '~> 1.0.0.pre', github: 'reactjs/react-rails'
 
 # Use SCSS and bootstrap for stylesheets
