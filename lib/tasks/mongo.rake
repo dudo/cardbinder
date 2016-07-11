@@ -1,7 +1,6 @@
 namespace :mongo do
 
-  def import_mtg_set(file)
-    doc = JSON.parse( IO.read(file) ).with_indifferent_access
+  def import_mtg_set(doc)
     set = CardSet.where(code: doc['code']).first_or_initialize
     set.name ||= doc['name']
     set.gathererCode = doc['gathererCode']
@@ -11,7 +10,8 @@ namespace :mongo do
     set.save
 
     doc['cards'].each do |card|
-      c = set.cards.find_or_initialize_by(name: card['name'], number: card['number'])
+      c = set.cards.where(name: card['name'], number: card['number']).first_or_initialize
+      next if c.persisted?
       c.set_name ||= set.name
       c.set_code ||= set.code
       c.imageName ||= card['imageName']
@@ -32,21 +32,32 @@ namespace :mongo do
       c.variations = card['variations']
       c.save
     end
+    puts "Successfully Imported #{set.name}"
+  end
+
+  def all_sets
   end
 
   desc "Imports all or the specified JSON file to the Mongo collection(s)"
   task :import_directory, [:directory] => :environment do |task, args|
     raise "Must include a directory" unless args.directory
     Dir.glob("#{args.directory}/*.json") do |o|
-      import_mtg_set(o)
-      puts "Imported #{o.to_s}"
+      set = JSON.parse( IO.read(o) ).with_indifferent_access
+      import_mtg_set(set)
     end
   end
 
   desc "Imports a specified JSON file to the Mongo collection(s)"
   task :import_file, [:file] => :environment do |task, args|
     raise "Must include a file" unless args.file
-    import_mtg_set(args.file)
-    puts "Imported #{args.file.to_s}"
+    set = JSON.parse( IO.read(args.file) ).with_indifferent_access
+    import_mtg_set(set)
+  end
+
+  desc "Imports single File containing all Sets to the Mongo collections"
+  task :import_all_cards => :environment do |task, args|
+    JSON.parse( IO.read('AllSets.json') ).with_indifferent_access.each do |name, set|
+      import_mtg_set(set)
+    end
   end
 end
