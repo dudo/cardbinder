@@ -4,7 +4,6 @@ $(document).on 'ready page:load', ->
       img = $(this)
       img.attr('src', img.data('src'))
          .addClass('waypoint-loaded')
-         .parent().siblings('.card-actions').show()
     ), offset: '150%', triggerOnce: true
   createWaypoints()
 

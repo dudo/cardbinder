@@ -6,17 +6,11 @@ li.sleeve {
   width: 240px;
   height: 340px;
   perspective: 1000;
-  &.flip {
-    &.normal {
-      .card {
-        transform: rotateY(360deg);
-      }
-    }
-    &.split {
-      .card {
-        transform: rotateY(360deg) rotate(90deg);
-      }
-    }
+  &.split .card {
+    transform: rotate(90deg);
+  }
+  &.flip .card {
+    transform: rotateY(180deg);
   }
    // flip speed goes here
   .card {
@@ -55,7 +49,6 @@ ul.binder {
 }
 
 .card-actions {
-  display: none;
   backface-visibility: hidden;
   position: absolute;
   left: 0px;
