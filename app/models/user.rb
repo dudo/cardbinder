@@ -27,13 +27,13 @@ class User
 
   # add and remove cards from binder
   def has? (card)
-    !self.cards.where(id: card.id).empty?
+    self.cards.where(id: card.id).any?
   end
   def add! (card)
     self.cards << Card.find(card.id)
   end
   def remove! (card)
-    self.cards.where(id: card.id).delete_all
+    self.cards.delete(Card.find(card.id))
   end
 
   # password stuff
@@ -46,8 +46,8 @@ class User
 
 private
 
-    def create_remember_token
-      self.remember_token = User.digest(User.new_remember_token)
-    end
+  def create_remember_token
+    self.remember_token = User.digest(User.new_remember_token)
+  end
 
 end
