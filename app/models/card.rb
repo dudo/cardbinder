@@ -34,7 +34,7 @@ class Card
 
   # this is used for the header menu, and almost always available
   def self.sets
-    CardSet.not_in(code: %w(M15)).order_by([[:releaseDate, :asc]])
+    CardSet.not_in(code: CardSet::NON_STANDARD_SETS + CardSet::DONT_HAVE_PICS).order_by([[:releaseDate, :asc]])
   end
 
   def self.aliases(a)
