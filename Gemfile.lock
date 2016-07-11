@@ -105,8 +105,12 @@ GEM
       mongo (~> 2.1)
       origin (~> 2.2)
       tzinfo (>= 0.3.37)
-    mongoid_slug (3.2.1)
-      mongoid (> 3.0)
+    mongoid-compatibility (0.4.0)
+      activesupport
+      mongoid (>= 2.0)
+    mongoid-slug (5.2.0)
+      mongoid (>= 3.0)
+      mongoid-compatibility
       stringex (~> 2.0)
     multi_json (1.10.1)
     multi_xml (0.5.5)
@@ -174,7 +178,7 @@ GEM
       colorize
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
-    stringex (2.5.2)
+    stringex (2.6.0)
     thin (1.6.2)
       daemons (>= 1.0.9)
       eventmachine (>= 1.0.0)
@@ -210,7 +214,7 @@ DEPENDENCIES
   kaminari
   meta-tags
   mongoid
-  mongoid_slug
+  mongoid-slug
   nokogiri
   pry-rails
   rails (= 4.1.4)
