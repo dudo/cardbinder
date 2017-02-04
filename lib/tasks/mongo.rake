@@ -12,27 +12,26 @@ namespace :mongo do
     set.save
 
     doc['cards'].each do |card|
-      c = set.cards.where(name: card['name'], number: card['number']).first_or_create do |c|
-        c.set_name = set.name
-        c.set_code = set.code
-        c.imageName = card['imageName']
-        c.layout = card['layout']
-        c.names = card['names']
-        c.manaCost = card['manaCost']
-        c.cmc = card['cmc']
-        c.colors = card['colors']
-        c.type = card['type']
-        c.supertypes = card['supertypes']
-        c.types = card['types']
-        c.subtypes = card['subtypes']
-        c.rarity = card['rarity']
-        c.text = card['text']
-        c.flavor = card['flavor']
-        c.artist = card['artist']
-        c.multiverseid = card['multiverseid']
-        c.variations = card['variations']
-        c.save
-      end
+      c = set.cards.where(name: card['name'], number: card['number']).first_or_initialize
+      c.set_name = set.name
+      c.set_code = set.code
+      c.imageName = card['imageName']
+      c.layout = card['layout']
+      c.names = card['names']
+      c.manaCost = card['manaCost']
+      c.cmc = card['cmc']
+      c.colors = card['colors']
+      c.type = card['type']
+      c.supertypes = card['supertypes']
+      c.types = card['types']
+      c.subtypes = card['subtypes']
+      c.rarity = card['rarity']
+      c.text = card['text']
+      c.flavor = card['flavor']
+      c.artist = card['artist']
+      c.multiverseid = card['multiverseid']
+      c.variations = card['variations']
+      c.save
     end
     puts "Successfully Imported #{set.name}"
   end
