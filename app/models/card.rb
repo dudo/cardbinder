@@ -44,6 +44,7 @@ class Card
     when 'b', 'swamp', 'black'  then 'B'
     when 'g', 'forest', 'green' then 'G'
     when 'r', 'mountain', 'red' then 'R'
+    when 'c', 'colorless'       then 'C'
     end
   end
 

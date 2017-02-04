@@ -15,6 +15,6 @@ class CardSet
   index(code: 1)
   index(releaseDate: 1)
 
-  DONT_HAVE_PICS = %w(M15 KTK FRF DTK BFZ OGW EXP ORI SOI EMN)
+  DONT_HAVE_PICS = %w(AER)
 
 end
