@@ -11,8 +11,9 @@
           %li= link_to(image_tag('/assets/mtg_types/colorless.svg', class: 'symbol color'), nil, class: 'select-card', title: 'Colorless', data: {pick: 'C'} ) if %w(OGW).include?(@card_set.try(:code))
           %li= link_to(image_tag('/assets/mtg_types/snow.svg', class: 'symbol color'), nil, class: 'select-card', title: 'Snow', data: {pick: 'S'} ) if %w(ICE CSP).include?(@card_set.try(:code))
           %li= link_to(image_tag('/assets/mtg_types/phyrexian.svg', class: 'symbol color'), nil, class: 'select-card', title: 'Phyrexian', data: {pick: 'P'} ) if %w(NPH).include?(@card_set.try(:code))
+          %li= link_to(image_tag('/assets/mtg_types/energy.svg', class: 'symbol color'), nil, class: 'select-card', title: 'Energy', data: {pick: 'E'} ) if %w(KLD).include?(@card_set.try(:code))
           %li= link_to(image_tag('/assets/mtg_sets/TSB.svg', class: 'symbol color'), nil, class: 'select-card', title: 'Timeshifted', data: {pick: 'TSB'} ) if %w(TSP).include?(@card_set.try(:code))
-          %li= link_to(image_tag('/assets/mtg_sets/energy.svg', class: 'symbol color'), nil, class: 'select-card', title: 'Energy', data: {pick: 'E'} ) if %w(KLD).include?(@card_set.try(:code))
+
         %ul.nav.navbar-nav.navbar-right
           %li= link_to(image_tag('/assets/mtg_types/tap.svg', class: 'symbol type'), nil, title: 'Types', class: 'card-menu-toggle' )
 
