@@ -80,6 +80,7 @@ class Card
   def back
     default = "#{Rails.configuration.image_host}/back.jpg"
     return default unless alternate_info?
+    return default if %w(split flip).include? layout
 
     face = card_set.cards.find_by(name: names[-1])
     meld_side = names.find_index(name) == 0 ? ' bottom' : ' top' if layout == 'meld'
