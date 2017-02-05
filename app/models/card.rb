@@ -59,14 +59,14 @@ class Card
 
   def options
     options = self.colors + self.all_types + [self.set_code] + [self.rarity.downcase]
-    options += related_card.colors + related_card.all_types if alternate_info?
+    options += related_cards.map(&:colors) + related_cards.map(&:all_types) if alternate_info?
     options = options.flatten.compact.uniq
   end
 
-  def related_card
-    return unless alternate_info?
+  def related_cards
+    return [] unless alternate_info?
 
-    card_set.cards.find_by(name: names[1])
+    card_set.cards.where(name: names)
   end
 
   def all_types
@@ -81,8 +81,9 @@ class Card
     default = "#{Rails.configuration.image_host}/back.jpg"
     return default unless alternate_info?
 
-    face = card_set.cards.find_by(name: names[1])
-    "#{Rails.configuration.image_host}/#{set_name.downcase}/#{face.imageName}.jpg"
+    face = card_set.cards.find_by(name: names[-1])
+    meld_side = names.find_index(name) == 0 ? ' bottom' : ' top' if layout == 'meld'
+    "#{Rails.configuration.image_host}/#{set_name.downcase}/#{face.imageName}#{meld_side}.jpg"
   end
 
   def rarity_colors
@@ -96,12 +97,14 @@ private
 
   def alternate_info?
     # normal, split, flip, double-faced, token, plane, scheme, phenomenon, leveler, vanguard, meld
-    case layout
-    when 'double-faced'
-      names && names[1]
-    else
-      false
-    end
+    names.try(:many?)
+    # case layout
+    # when 'double-faced'
+
+    # when 'meld'
+    # else
+    #   false
+    # end
   end
 
 end
