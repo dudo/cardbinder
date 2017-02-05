@@ -30,7 +30,7 @@ $(document).on 'ready page:load', ->
         $(this).hide()
     createWaypoints()
 
-  $(document).on 'click', 'li.sleeve span.flipper', ->
+  $('.flipper').on 'click', ->
     $sleeve = $(this).parents('.sleeve')
     $sleeve.toggleClass('flip')
 
