@@ -7,7 +7,7 @@
   %span.glyphicon.glyphicon-share-alt.flipper{title: 'Flip'}
 .card{ data: {options: card.options.join(' ').strip}, id: card.multiverseid }
   .front
-    - img = "#{Rails.configuration.image_host}/#{card.set_name.downcase}/#{card.imageName}.jpg"
-    =image_tag("#{img if show_image ||= false}", 'data-src' => img, alt: card.imageName)
+    - img = card.front
+    = image_tag("#{img if show_image ||= false}", 'data-src' => img, alt: card.imageName)
   .back
-    =image_tag("https://cardbinder.s3.amazonaws.com/magic/back.jpg")
+    = image_tag(card.back)

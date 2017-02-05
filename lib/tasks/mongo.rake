@@ -13,7 +13,6 @@ namespace :mongo do
 
     doc['cards'].each do |card|
       c = set.cards.where(name: card['name'], number: card['number']).first_or_initialize
-      c.set_name = set.name
       c.set_code = set.code
       c.imageName = card['imageName']
       c.layout = card['layout']
@@ -21,6 +20,7 @@ namespace :mongo do
       c.manaCost = card['manaCost']
       c.cmc = card['cmc']
       c.colors = card['colors']
+      c.colorIdentity = card['colorIdentity']
       c.type = card['type']
       c.supertypes = card['supertypes']
       c.types = card['types']

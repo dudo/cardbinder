@@ -10,6 +10,7 @@ class Card
   field :manaCost, type: String
   field :cmc, type: Integer # converted mana cost
   field :colors, type: Array
+  field :colorIdentity, type: Array
   field :type, type: String # This is the type you would see on the card if printed today. Note: The dash is a UTF8 'long dash' as per the MTG rules
   field :supertypes, type: Array
   field :types, type: Array
@@ -49,15 +50,37 @@ class Card
   end
 
   def colors
-    colors = []
+    colors = [colorIdentity]
     colors += self.subtypes.map{ |c| Card.aliases(c) } if self.subtypes && self.types.map(&:downcase).include?('land')
     colors += self.manaCost.scan(/[A-Z]*/).reject(&:blank?) if self.manaCost
     colors += self.text.scan(/{\w|\w}/).map{|t| t.delete('{}T0123456789')}.uniq if self.text
-    colors = colors.uniq
+    colors = colors.compact.uniq
   end
 
   def options
-    self.colors + self.types.map(&:downcase) + [self.set_code] + [self.rarity.downcase]
+    options = self.colors + self.types.map(&:downcase) + [self.set_code] + [self.rarity.downcase]
+    if alternate_info?
+      options += related_card.colors + related_card.types.map(&:downcase) + [related_card.set_code] + [related_card.rarity.downcase]
+    end
+    options.uniq
+  end
+
+  def related_card
+    return unless alternate_info?
+
+    card_set.cards.find_by(name: names[1])
+  end
+
+  def front
+    "#{Rails.configuration.image_host}/#{set_name.downcase}/#{imageName}.jpg"
+  end
+
+  def back
+    default = "#{Rails.configuration.image_host}/back.jpg"
+    return default unless alternate_info?
+
+    face = card_set.cards.find_by(name: names[1])
+    "#{Rails.configuration.image_host}/#{set_name.downcase}/#{face.imageName}.jpg"
   end
 
   def rarity_colors
@@ -65,6 +88,18 @@ class Card
     #83703d
     #474e51
     #000000
+  end
+
+private
+
+  def alternate_info?
+    # normal, split, flip, double-faced, token, plane, scheme, phenomenon, leveler, vanguard, meld
+    case layout
+    when 'double-faced'
+      names && names[1]
+    else
+      false
+    end
   end
 
 end
