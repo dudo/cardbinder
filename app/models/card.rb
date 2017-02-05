@@ -60,7 +60,7 @@ class Card
   def options
     options = self.colors + self.all_types + [self.set_code] + [self.rarity.downcase]
     options += related_card.colors + related_card.all_types if alternate_info?
-    options = options.compact.uniq
+    options = options.compact.map(&:downcase).uniq
   end
 
   def related_card
@@ -70,7 +70,7 @@ class Card
   end
 
   def all_types
-    self.types.map(&:downcase) + self.supertypes.map(&:downcase) + self.subtypes.map(&:downcase)
+    self.types + self.supertypes + self.subtypes
   end
 
   def front
