@@ -52,7 +52,7 @@ class Card
 
   def colors
     colors = [colorIdentity]
-    colors += self.subtypes.map{ |c| Card.aliases(c) } if self.subtypes && self.types.map(&:downcase).include?('land')
+    colors += self.all_types.map{ |c| Card.aliases(c) }
     colors += self.manaCost.scan(/[A-Z]*/).reject(&:blank?) if self.manaCost
     colors += self.text.scan(/{\w|\w}/).map{|t| t.delete('{}T0123456789')}.uniq if self.text
     colors = colors.flatten.compact.uniq
@@ -61,7 +61,7 @@ class Card
   def options
     options = self.colors + self.all_types + [self.set_code] + [self.rarity.downcase]
     options += related_cards.map(&:colors) + related_cards.map(&:all_types) if alternate_info?
-    options = options.flatten.compact.uniq
+    options = options.flatten.compact.uniq.map(&:downcase)
   end
 
   def related_cards
@@ -71,7 +71,7 @@ class Card
   end
 
   def all_types
-    (self.types || []) + (self.supertypes || []) + (self.subtypes || []).flatten.map(&:downcase)
+    (self.types || []) + (self.supertypes || []) + (self.subtypes || []).flatten
   end
 
   def front
