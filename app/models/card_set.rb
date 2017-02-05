@@ -15,6 +15,6 @@ class CardSet
   index(code: 1)
   index(releaseDate: 1)
 
-  DONT_HAVE_PICS = %w(AER)
+  SKIP = %w(TSB AER)
 
 end
