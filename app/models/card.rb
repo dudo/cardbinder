@@ -60,7 +60,7 @@ class Card
   def options
     options = self.colors + self.all_types + [self.set_code] + [self.rarity.downcase]
     options += related_card.colors + related_card.all_types if alternate_info?
-    options = options.flatten.compact.map(&:downcase).uniq
+    options = options.flatten.compact.uniq
   end
 
   def related_card
