@@ -71,7 +71,7 @@ class Card
   end
 
   def all_types
-    (self.types || []) + (self.supertypes || []) + (self.subtypes || []).map(&:downcase)
+    (self.types || []) + (self.supertypes || []) + (self.subtypes || []).flatten.map(&:downcase)
   end
 
   def front
