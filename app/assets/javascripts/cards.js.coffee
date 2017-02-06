@@ -11,7 +11,7 @@ $(document).on 'ready page:load', ->
 
   $('.card-menu-toggle').on 'click', (e) ->
     e.preventDefault()
-    $('div#select-card-menu').toggleClass 'flip'
+    $('div#select-card-menu').toggleClass 'flipped'
 
   $('a.select-card').on 'click', (e) ->
     e.preventDefault()
@@ -32,7 +32,7 @@ $(document).on 'ready page:load', ->
 
   $('.flipper').on 'click', ->
     $sleeve = $(this).parents('.sleeve')
-    $sleeve.toggleClass('flip')
+    $sleeve.toggleClass('flipped')
 
   $('#select-set-menu').one 'mouseenter', ->
     $gal = $('#select-set-menu')

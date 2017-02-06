@@ -6,7 +6,7 @@ li.sleeve {
   width: 240px;
   height: 340px;
   perspective: 1000;
-  &.flip .card {
+  &.flipped .card {
     transform: rotateY(180deg);
   }
    // flip speed goes here

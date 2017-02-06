@@ -37,7 +37,7 @@ div#select-card-menu {
   perspective: 1000;
   width: 440px;
   margin: 0px auto;
-  &.flip .menu {
+  &.flipped .menu {
     transform: rotateX(180deg);
   }
    // flip speed goes here
