@@ -1,3 +1,5 @@
-- current = @card_set.try(:code) == card_set.try(:code)
-%li{class: "#{card_set.type == 'core' ? 'core' : 'expansion'} #{'active' if current}"}
-  =link_to(image_tag("/assets/mtg_sets/#{card_set.code}.svg", class: 'set symbol'), card_set_cards_path(card_set), title: card_set.name)
+- active = 'active' if @card_set.try(:code) == card_set.try(:code)
+- standard = 'standard' if CardSet::STANDARD.include?(card_set.try(:code))
+- classes = [card_set.type, standard, active].compact
+%li{class: classes.join(' ')}
+  =link_to(image_tag("/assets/mtg_sets/#{card_set.code}.svg", class: 'set symbol'), card_set_cards_path(card_set), title: "#{card_set.name} #{standard}")

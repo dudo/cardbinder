@@ -16,5 +16,6 @@ class CardSet
   index(releaseDate: 1)
 
   SKIP = %w(TSB AER)
+  STANDARD = %w(BFZ OGW SOI EMN KLD AER AKH HOU) # http://whatsinstandard.com/
 
 end
