@@ -58,10 +58,24 @@ class Card
     colors = colors.flatten.compact.uniq
   end
 
+  def keywords
+    return [] unless self.text
+    words = [
+      'activate', 'attach', 'cast', 'counter', 'create', 'deathtouch', 'defender',
+      'destroy', 'draw', 'discard', 'double strike', 'enchant', 'equip', 'exchange',
+      'exile', 'fight', 'first strike', 'flash', 'flying', 'haste', 'hexproof',
+      'indestructible', 'lifelink', 'menace', 'play', 'prowess', 'reach', 'reveal',
+      'sacrifice', 'scry', 'search', 'shuffle', 'tap', 'untap', 'trample', 'vigilance',
+      'ante', 'banding', 'bury', 'fear', 'shroud', 'intimidate', 'landwalk', 'protection',
+      'regenerate'
+    ]
+    self.text.scan(/#{words.map{ |w| "#{w}(?!\\w)" }.join('|')}/i)
+  end
+
   def options
-    options = self.colors + self.all_types + [self.set_code] + [self.rarity.downcase]
-    options += related_cards.map(&:colors) + related_cards.map(&:all_types) if alternate_info?
-    options = options.flatten.compact.uniq.map(&:downcase)
+    options = self.colors + self.all_types + [self.set_code] + [self.rarity.downcase] + self.keywords
+    options += related_cards.map(&:colors) + related_cards.map(&:all_types) + related_cards.map(&:keywords) if alternate_info?
+    options.flatten.map(&:presence).compact.map{ |o| o.downcase.strip }.uniq
   end
 
   def related_cards
