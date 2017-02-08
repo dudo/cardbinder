@@ -5,7 +5,7 @@
     - else
       = link_to '', add_card_path(card: card.multiverseid), class: "glyphicon glyphicon-ok", title: 'Add to Binder', remote: true, method: :post
   %span.glyphicon.glyphicon-share-alt.flipper{title: 'Flip'}
-.card{ data: {options: card.options.join(' ').strip}, id: card.multiverseid }
+.card{ data: {options: card.options.join(' ')}, id: card.multiverseid }
   .front
     - img = card.front
     = image_tag("#{img if show_image ||= false}", 'data-src' => img, alt: card.imageName)
