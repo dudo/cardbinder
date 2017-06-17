@@ -35,10 +35,9 @@ $(document).on 'ready page:load', ->
     $sleeve.toggleClass('flipped')
 
   $gal = $('#select-set-menu')
-  $gal.scrollLeft $gal[0].scrollWidth
   $gal.one 'mouseenter', ->
-    galW = $gal.outerWidth(true)
-    galSW = $gal[0].scrollWidth
+    galW = @outerWidth(true)
+    galSW = @scrollWidth
     wDiff = (galSW / galW) - 1
     mPadd = 100
     damp = 20
@@ -47,10 +46,10 @@ $(document).on 'ready page:load', ->
     posX = 0
     mmAA = galW - (mPadd * 2)
     mmAAr = galW / mmAA
-    $('#select-set-menu').on 'mousemove', (e) ->
+    @on 'mousemove', (e) ->
       mX = e.pageX - $(this).parent().offset().left - @offsetLeft
       mX2 = Math.min(Math.max(0, mX - mPadd), mmAA) * mmAAr
     setInterval (->
       posX += (mX2 - posX) / damp
-      $gal.scrollLeft posX * wDiff
+      @scrollLeft posX * wDiff
     ), 10
