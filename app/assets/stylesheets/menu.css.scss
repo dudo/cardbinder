@@ -8,6 +8,7 @@
 }
 
 ul#select-set-menu {
+  font-size: 0px;
   overflow: hidden;
   white-space: nowrap;
   float: none;
@@ -29,7 +30,8 @@ ul#select-set-menu {
     }
   }
   i.ss {
-    font-size: 20px !important;
+    font-size: 30px !important;
+    line-height: 0px;
   }
 }
 
