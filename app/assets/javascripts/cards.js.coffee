@@ -36,7 +36,7 @@ $(document).on 'ready page:load', ->
 
   $gal = $('#select-set-menu')
   $gal.scrollLeft $gal[0].scrollWidth
-  $('#select-set-menu').one 'mouseenter', ->
+  $gal.one 'mouseenter', ->
     galW = $gal.outerWidth(true)
     galSW = $gal[0].scrollWidth
     wDiff = (galSW / galW) - 1
