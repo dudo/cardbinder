@@ -34,8 +34,9 @@ $(document).on 'ready page:load', ->
     $sleeve = $(this).parents('.sleeve')
     $sleeve.toggleClass('flipped')
 
+  $gal = $('#select-set-menu')
+  $gal.scrollLeft $gal[0].scrollWidth
   $('#select-set-menu').one 'mouseenter', ->
-    $gal = $('#select-set-menu')
     galW = $gal.outerWidth(true)
     galSW = $gal[0].scrollWidth
     wDiff = (galSW / galW) - 1
