@@ -18,7 +18,7 @@ class CardsController < ApplicationController
   def index
     @card_set = CardSet.find(params[:card_set_id])
     @cards = @card_set.cards.order_by([:imageName])#.page(params[:page]).per(40)
-    @cards = @cards.reject{ |c| c.name == c.names.try(:[], -1) }
+    @cards = @cards.reject{ |c| c.alternate_info? && c.name == c.names[-1] }
     # @presenter = {
     #   img_host: Rails.configuration.image_host,
     #   cards: @cards,

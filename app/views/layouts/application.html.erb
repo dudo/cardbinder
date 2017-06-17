@@ -3,8 +3,9 @@
   <head>
     <title><%= full_title(yield(:title)) %></title>
     <meta http-equiv='content-language' content='en-us'>
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+    <%= stylesheet_link_tag    "//cdn.jsdelivr.net/npm/keyrune@latest/css/keyrune.css" %>
+    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
     <%= csrf_meta_tags %>
     <%= render 'layouts/shim' %>
   </head>

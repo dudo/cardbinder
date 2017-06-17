@@ -45,7 +45,6 @@ class Card
     when 'b', 'swamp', 'black'  then 'B'
     when 'g', 'forest', 'green' then 'G'
     when 'r', 'mountain', 'red' then 'R'
-    when 'snow'                 then 'S'
     when 'c', 'colorless'       then 'C'
     end
   end
@@ -74,7 +73,7 @@ class Card
 
   def options
     options = self.colors + self.all_types + [self.set_code] + [self.rarity.downcase] + self.keywords
-    options += related_cards.map(&:colors) + related_cards.map(&:all_types) + related_cards.map(&:keywords) if alternate_info?
+    options += related_cards.map(&:colors) + related_cards.map(&:all_types) + related_cards.map(&:keywords)
     options.flatten.map(&:presence).compact.map{ |o| o.downcase.strip }.uniq
   end
 
@@ -95,7 +94,7 @@ class Card
   def back
     default = "#{Rails.configuration.image_host}/back.jpg"
     return default unless alternate_info?
-    return default if %w(split flip).include? layout
+    return default if %w(split flip aftermath).include? layout
 
     face = card_set.cards.find_by(name: names[-1])
     meld_side = names.find_index(name) == 0 ? ' bottom' : ' top' if layout == 'meld'
@@ -112,7 +111,7 @@ class Card
 private
 
   def alternate_info?
-    # normal, split, flip, double-faced, token, plane, scheme, phenomenon, leveler, vanguard, meld
+    # normal, split, flip, double-faced, token, plane, scheme, phenomenon, leveler, vanguard, meld, aftermath
     names.try(:many?)
     # case layout
     # when 'double-faced'

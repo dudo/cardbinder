@@ -9,7 +9,7 @@
           %li= link_to(image_tag('/assets/mtg_types/red.svg', class: 'symbol color'), nil, class: 'select-card', title: 'Mountain', data: {pick: 'r'} )
           %li= link_to(image_tag('/assets/mtg_types/green.svg', class: 'symbol color'), nil, class: 'select-card', title: 'Forest', data: {pick: 'g'} )
           %li= link_to(image_tag('/assets/mtg_types/colorless.svg', class: 'symbol color'), nil, class: 'select-card', title: 'Colorless', data: {pick: 'c'} ) if %w(OGW AER).include?(@card_set.try(:code))
-          %li= link_to(image_tag('/assets/mtg_types/snow.svg', class: 'symbol color'), nil, class: 'select-card', title: 'Snow', data: {pick: 's'} ) if %w(ICE CSP).include?(@card_set.try(:code))
+          / %li= link_to(image_tag('/assets/mtg_types/snow.svg', class: 'symbol color'), nil, class: 'select-card', title: 'Snow', data: {pick: 'snow'} ) if %w(ICE CSP).include?(@card_set.try(:code))
           %li= link_to(image_tag('/assets/mtg_types/phyrexian.svg', class: 'symbol color'), nil, class: 'select-card', title: 'Phyrexian', data: {pick: 'p'} ) if %w(NPH).include?(@card_set.try(:code))
           %li= link_to(image_tag('/assets/mtg_types/energy.svg', class: 'symbol color'), nil, class: 'select-card', title: 'Energy', data: {pick: 'e'} ) if %w(KLD AER).include?(@card_set.try(:code))
           %li= link_to(image_tag('/assets/mtg_sets/TSB.svg', class: 'symbol color'), nil, class: 'select-card', title: 'Timeshifted', data: {pick: 'tsb'} ) if %w(TSP).include?(@card_set.try(:code))
