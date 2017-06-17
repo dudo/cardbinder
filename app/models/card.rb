@@ -108,8 +108,6 @@ class Card
     #000000
   end
 
-private
-
   def alternate_info?
     # normal, split, flip, double-faced, token, plane, scheme, phenomenon, leveler, vanguard, meld, aftermath
     names.try(:many?)
