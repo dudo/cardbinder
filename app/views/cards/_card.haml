@@ -7,7 +7,7 @@
   %span.glyphicon.glyphicon-share-alt.flipper{title: 'Flip'}
 
 - names = Array.wrap(card.try(:names) || card.name)
-.card{ data: {options: card.options.join(' ')}, id: card.multiverseid, title: names.join('&#10;') }
+.card{ data: {options: card.options.join(' ')}, id: card.multiverseid }
   .front
     - img = card.front
     = image_tag("#{img if show_image ||= false}", 'data-src' => img, alt: names.join(' - '))
