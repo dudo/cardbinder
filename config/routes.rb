@@ -25,9 +25,7 @@ Rails.application.routes.draw do
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
   resources :card_sets do
-    resources :cards do
-      get 'page/:page', action: :index, on: :collection
-    end
+    resources :cards
   end
 
   # Example resource route with options:

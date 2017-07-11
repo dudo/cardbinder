@@ -14,6 +14,7 @@ namespace :mongo do
     doc['cards'].each do |card|
       c = set.cards.where(name: card['name'], number: card['number']).first_or_initialize
       c.set_code = set.code
+      c.set_name = set.name
       c.imageName = card['imageName']
       c.layout = card['layout']
       c.names = card['names']

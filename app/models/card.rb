@@ -79,8 +79,7 @@ class Card
 
   def related_cards
     return [] unless alternate_info?
-
-    card_set.cards.where(name: names)
+    card_set.cards.where(:name.in => names)
   end
 
   def all_types
