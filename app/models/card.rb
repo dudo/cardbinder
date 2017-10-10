@@ -62,8 +62,8 @@ class Card
   def colors
     colors = [colorIdentity]
     colors += all_types.map{ |c| Card.color_aliases(c) }
-    colors += manaCost.scan(/\D+/i) if manaCost
-    colors += text[/{\D*}/i].split('') - %w({ } T t) if text
+    colors += manaCost.scan(/[A-Z]*/).reject(&:blank?) if manaCost
+    colors += text.scan(/{\w|\w}/).map{ |t| t.delete('{}T0123456789') }.uniq if text
     colors = colors.flatten.compact.uniq
   end
 
