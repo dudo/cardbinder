@@ -33,13 +33,23 @@ class Card
 
   slug :name
 
+  EVERGREEN_WORDS = %w(
+    activate attach cast counter create deathtouch defender
+    destroy draw discard double strike enchant equip exchange
+    exile fight first strike flash flying haste hexproof
+    indestructible lifelink menace play prowess reach reveal
+    sacrifice scry search shuffle tap untap trample vigilance
+    ante banding bury fear shroud intimidate landwalk protection
+    regenerate
+  )
+
   # this is used for the header menu, and almost always available
   def self.sets
     CardSet.in(type: %w(core expansion)).not_in(code: CardSet::SKIP).order_by([[:releaseDate, :asc]])
   end
 
-  def self.aliases(a)
-    case a.downcase
+  def self.color_aliases(string)
+    case string.downcase
     when 'w', 'plains', 'white' then 'W'
     when 'u', 'island', 'blue'  then 'U'
     when 'b', 'swamp', 'black'  then 'B'
@@ -51,29 +61,20 @@ class Card
 
   def colors
     colors = [colorIdentity]
-    colors += self.all_types.map{ |c| Card.aliases(c) }
-    colors += self.manaCost.scan(/[A-Z]*/).reject(&:blank?) if self.manaCost
-    colors += self.text.scan(/{\w|\w}/).map{|t| t.delete('{}T0123456789')}.uniq if self.text
+    colors += all_types.map{ |c| Card.color_aliases(c) }
+    colors += manaCost.scan(/\D+/i) if manaCost
+    colors += text[/{\D*}/i].split('') - %w({ } T t) if text
     colors = colors.flatten.compact.uniq
   end
 
   def keywords
-    return [] unless self.text
-    words = [
-      'activate', 'attach', 'cast', 'counter', 'create', 'deathtouch', 'defender',
-      'destroy', 'draw', 'discard', 'double strike', 'enchant', 'equip', 'exchange',
-      'exile', 'fight', 'first strike', 'flash', 'flying', 'haste', 'hexproof',
-      'indestructible', 'lifelink', 'menace', 'play', 'prowess', 'reach', 'reveal',
-      'sacrifice', 'scry', 'search', 'shuffle', 'tap', 'untap', 'trample', 'vigilance',
-      'ante', 'banding', 'bury', 'fear', 'shroud', 'intimidate', 'landwalk', 'protection',
-      'regenerate'
-    ]
-    self.text.scan(/#{words.map{ |w| "#{w}(?!\\w)" }.join('|')}/i)
+    return [] unless text
+    text.split.map(&:downcase) & EVERGREEN_WORDS
   end
 
   def options
-    options = self.colors + self.all_types + [self.set_code] + [self.rarity.downcase] + self.keywords
-    options += related_cards.map(&:colors) + related_cards.map(&:all_types) + related_cards.map(&:keywords)
+    options = [colors, all_types, set_code, rarity, keywords]
+    options += [related_cards.map(&:colors), related_cards.map(&:all_types), related_cards.map(&:keywords)]
     options.flatten.map(&:presence).compact.map{ |o| o.downcase.strip }.uniq
   end
 
@@ -83,7 +84,7 @@ class Card
   end
 
   def all_types
-    (self.types || []) + (self.supertypes || []) + (self.subtypes || []).flatten
+    [types, supertypes, subtypes].flatten.compact
   end
 
   def front
@@ -108,15 +109,9 @@ class Card
   end
 
   def alternate_info?
-    # normal, split, flip, double-faced, token, plane, scheme, phenomenon, leveler, vanguard, meld, aftermath
+    # normal, split, flip, double-faced, token, plane, scheme,
+    # phenomenon, leveler, vanguard, meld, aftermath
     names.try(:many?)
-    # case layout
-    # when 'double-faced'
-
-    # when 'meld'
-    # else
-    #   false
-    # end
   end
 
 end
