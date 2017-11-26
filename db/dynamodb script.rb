@@ -4,8 +4,8 @@ require 'byebug'
 
 dynamodb = Aws::DynamoDB::Client.new(
   region: "us-east-1",
-  access_key_id: 'AKIAJNCFSVQBQKPVE7RA',
-  secret_access_key: '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'
+  access_key_id: 'asdf',
+  secret_access_key: 'asdf'
 )
 
 Dir.glob('/Users/dudo/Downloads/*.json') do |file|
