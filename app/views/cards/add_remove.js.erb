@@ -1,3 +1,8 @@
-$(".card#<%= @card.multiverseid %>").parents('.sleeve').html("<%= j render partial: 'cards/card', locals: {card: @card} %>");
+let sleeve = document.querySelector(".card#multiverse<%= @card.multiverseid %>").parentNode;
+sleeve.innerHTML = "<%= j render partial: 'cards/card', locals: {card: @card} %>";
+
+addSleeveFlipper(sleeve);
 
 new LazyLoad();
+
+

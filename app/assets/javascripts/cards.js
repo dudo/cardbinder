@@ -69,11 +69,13 @@ document.addEventListener("turbolinks:load", function() {
 
     })
 
-    sleeves.forEach((sleeve) => {
-      flipper = sleeve.querySelector('.flipper');
-      flipper.addEventListener('click', function() {
-        sleeve.classList.toggle('flipped');
-      }, false)
-    })
+    sleeves.forEach((sleeve) => { addSleeveFlipper(sleeve) })
   }
 })
+
+function addSleeveFlipper(sleeve) {
+  flipper = sleeve.querySelector('.flipper');
+  flipper.addEventListener('click', function() {
+    sleeve.classList.toggle('flipped');
+  }, false)
+}
