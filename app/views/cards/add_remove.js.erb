@@ -1,1 +1,1 @@
-$(".card#<%= @card.multiverseid %>").parents('.sleeve').html("<%= j render partial: 'cards/card', locals: {card: @card, show_image: true} %>");
+$(".card#<%= @card.multiverseid %>").parents('.sleeve').html("<%= j render partial: 'cards/card', locals: {card: @card} %>");
