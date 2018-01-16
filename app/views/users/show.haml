@@ -3,7 +3,8 @@
 
 %ul.binder
   = render collection: @cards, partial: 'cards/sleeve'
-.clearfix
-= link_to_next_page @cards, 'Next Page' rescue nil
+
+:javascript
+  new LazyLoad();
 
 / = react_component('Binder', {presenter: @presenter.to_json(except: %w(_id _slugs artist card_set_id cmc flavor multiverseid subtypes supertypes text type user_ids variations colors))}, {prerender: true})
