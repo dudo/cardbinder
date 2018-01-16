@@ -1,53 +1,6 @@
 document.addEventListener("turbolinks:load", function() {
 
   const set_menu = document.querySelector('#select-set-menu')
-  const sticky = document.querySelector('.sticky-wrapper')
-  const menu = sticky.querySelector('.select')
-  const sleeves = document.querySelectorAll('ul.binder li.sleeve')
-
-  window.addEventListener('scroll', function() {
-    if (sticky.getBoundingClientRect().top <= 0) {
-      menu.classList.add('fixed');
-    } else {
-      menu.classList.remove('fixed');
-    }
-  }, false)
-
-  menu.querySelectorAll('.card-menu-toggle').forEach((toggle) => {
-    toggle.addEventListener('click', function(e) {
-      e.preventDefault();
-      menu.classList.toggle('flipped');
-    }, false)
-  })
-
-  menu.querySelectorAll('a.select-card').forEach((selector) => {
-    selector.addEventListener('click', function(e) {
-      e.preventDefault();
-      selector.classList.toggle('selected');
-      selector.parentNode.classList.toggle('active');
-      let selected = [];
-      menu.querySelectorAll('a.select-card.selected').forEach((s) => {
-        selected.push(s.getAttribute('data-pick'));
-      })
-      sleeves.forEach((sleeve) => {
-        const card = sleeve.querySelector('.card');
-        if (selected.every((s) => { return card.getAttribute('data-options').split(' ').includes(s) })) {
-          sleeve.style.display = 'inline-block';
-        } else {
-          sleeve.style.display = 'none';
-        }
-      });
-    }, false)
-
-  })
-
-  sleeves.forEach((sleeve) => {
-    flipper = sleeve.querySelector('.flipper');
-    flipper.addEventListener('click', function() {
-      sleeve.classList.toggle('flipped');
-    }, false)
-  })
-
   set_menu.addEventListener('mouseenter', function(e) {
     if(e.currentTarget.dataset.triggered) return;
     e.currentTarget.dataset.triggered = true;
@@ -74,4 +27,53 @@ document.addEventListener("turbolinks:load", function() {
     }), 10);
   })
 
+  const sleeves = document.querySelectorAll('ul.binder li.sleeve')
+  if (sleeves.length > 0) {
+    const sticky = document.querySelector('.sticky-wrapper')
+    const menu = sticky.querySelector('.select')
+
+
+    window.addEventListener('scroll', function() {
+      if (sticky.getBoundingClientRect().top <= 0) {
+        menu.classList.add('fixed');
+      } else {
+        menu.classList.remove('fixed');
+      }
+    }, false)
+
+    menu.querySelectorAll('.card-menu-toggle').forEach((toggle) => {
+      toggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        menu.classList.toggle('flipped');
+      }, false)
+    })
+
+    menu.querySelectorAll('a.select-card').forEach((selector) => {
+      selector.addEventListener('click', function(e) {
+        e.preventDefault();
+        selector.classList.toggle('selected');
+        selector.parentNode.classList.toggle('active');
+        let selected = [];
+        menu.querySelectorAll('a.select-card.selected').forEach((s) => {
+          selected.push(s.getAttribute('data-pick'));
+        })
+        sleeves.forEach((sleeve) => {
+          const card = sleeve.querySelector('.card');
+          if (selected.every((s) => { return card.getAttribute('data-options').split(' ').includes(s) })) {
+            sleeve.style.display = 'inline-block';
+          } else {
+            sleeve.style.display = 'none';
+          }
+        });
+      }, false)
+
+    })
+
+    sleeves.forEach((sleeve) => {
+      flipper = sleeve.querySelector('.flipper');
+      flipper.addEventListener('click', function() {
+        sleeve.classList.toggle('flipped');
+      }, false)
+    })
+  }
 })
