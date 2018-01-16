@@ -31,7 +31,4 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
-
-  config.image_host = 'https://cardbinder.s3.amazonaws.com/magic' # personal storage on S3
-  # config.image_host = 'http://mtgimage.com/setname' # awesome API provided by mtgimage (same as mtgJSON where the main dataset comes from)
 end

@@ -36,7 +36,7 @@ ul#select-set-menu {
 }
 
 // entire container, keeps perspective
-div#select-card-menu {
+.select {
   position: relative;
   perspective: 1000;
   width: 440px;
@@ -87,7 +87,8 @@ div#select-card-menu {
 }
 
 .sticky-wrapper {
-  #select-card-menu.stuck {
+  height: 72px;
+  .select.fixed {
     position: fixed;
     top: 0px;
     left: 50%;
