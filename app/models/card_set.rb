@@ -16,6 +16,6 @@ class CardSet
   index(releaseDate: 1)
 
   SKIP = %w(TSB)
-  STANDARD = %w(KLD AER AKH HOU XLN RIX DOM) # http://whatsinstandard.com/
+  STANDARD = %w(XLN RIX DOM M19 GRN RNA) # http://whatsinstandard.com/
 
 end

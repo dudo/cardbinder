@@ -4,4 +4,4 @@ Upload json into db
 
 Ensure images are lower case
 
-    rename 'y/A-Z/a-z/' *
+    rename -f 'y/A-Z/a-z/' *

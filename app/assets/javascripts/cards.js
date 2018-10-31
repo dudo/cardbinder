@@ -1,6 +1,11 @@
 document.addEventListener("turbolinks:load", function() {
 
   const set_menu = document.querySelector('#select-set-menu')
+  if (set_menu.querySelector('li.active')) {
+    let x = set_menu.querySelector('li.active').offsetLeft;
+    set_menu.scrollLeft = x + 120;
+  }
+  
   set_menu.addEventListener('mouseenter', function(e) {
     if(e.currentTarget.dataset.triggered) return;
     e.currentTarget.dataset.triggered = true;
