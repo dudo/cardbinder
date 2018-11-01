@@ -12,7 +12,7 @@ gem 'mongoid'
 
 # Use SCSS and bootstrap for stylesheets
 gem 'bootstrap-sass'
-gem 'sass-rails'
+gem 'sassc-rails'
 gem 'autoprefixer-rails'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier'
