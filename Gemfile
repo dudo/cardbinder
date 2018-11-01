@@ -1,8 +1,7 @@
 source 'https://rubygems.org'
-ruby '2.4.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 4.2.0'
+gem 'rails'
 # gem 'sprockets', '~> 2.11.3'
 
 # Use mongoDB as the database... no more Active Record
@@ -12,11 +11,11 @@ gem 'rails', '~> 4.2.0'
 gem 'mongoid'
 
 # Use SCSS and bootstrap for stylesheets
-gem 'bootstrap-sass', '~> 3.2.0'
-gem 'sass-rails', '>= 3.2'
+gem 'bootstrap-sass'
+gem 'sass-rails'
 gem 'autoprefixer-rails'
 # Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
+gem 'uglifier'
 # Use HAML for the views
 gem 'haml'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
