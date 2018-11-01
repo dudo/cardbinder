@@ -15,7 +15,7 @@ namespace :mongo do
       c = set.cards.where(name: card['name'], number: card['number']).first_or_initialize
       c.set_code = set.code
       c.set_name = set.name
-      c.imageName = card['imageName']
+      c.imageName = card['imageName'] || (card['names']&.first || card['name']).downcase
       c.layout = card['layout']
       c.names = card['names']
       c.manaCost = card['manaCost']
