@@ -4,4 +4,5 @@ Upload json into db
 
 Ensure images are lower case
 
+    brew install rename
     rename -f 'y/A-Z/a-z/' *
