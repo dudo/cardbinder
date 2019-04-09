@@ -15,7 +15,16 @@ class CardSet
   index(code: 1)
   index(releaseDate: 1)
 
+  USED_TYPES = %w(core expansion)
   SKIP = %w(TSB)
   STANDARD = %w(XLN RIX DOM M19 GRN RNA) # http://whatsinstandard.com/
 
+  # this is used for the header menu, and almost always available
+  def self.history
+    all.in(type: USED_TYPES).not_in(code: SKIP).order_by([[:releaseDate, :asc]])
+  end
+
+  def keywords
+    cards.map(&:keywords).flatten.uniq
+  end
 end

@@ -30,7 +30,7 @@ namespace :mongo do
       c.text = card['text']
       c.flavor = card['flavor']
       c.artist = card['artist']
-      c.multiverseid = card['multiverseid']
+      c.multiverseid = card['multiverseid'] || card['multiverseId']
       c.variations = card['variations']
       c.save
     end

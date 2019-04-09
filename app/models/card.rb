@@ -43,9 +43,13 @@ class Card
     regenerate
   )
 
-  # this is used for the header menu, and almost always available
-  def self.sets
-    CardSet.in(type: %w(core expansion)).not_in(code: CardSet::SKIP).order_by([[:releaseDate, :asc]])
+  def self.rarity_colors
+    [
+      '#b02911',
+      '#83703d',
+      '#474e51',
+      '#000000'
+    ]
   end
 
   def self.color_aliases(string)
@@ -102,13 +106,6 @@ class Card
     face = card_set.cards.find_by(name: names[-1])
     meld_side = names.find_index(name) == 0 ? ' bottom' : ' top' if layout == 'meld'
     "#{Rails.configuration.image_host}/#{set_name.downcase}/#{face.imageName}#{meld_side}.jpg"
-  end
-
-  def rarity_colors
-    #b02911
-    #83703d
-    #474e51
-    #000000
   end
 
   def alternate_info?
