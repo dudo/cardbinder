@@ -91,8 +91,6 @@ document.addEventListener("turbolinks:load", () => {
   if (Turbolinks.scroll['top'] || Turbolinks.scroll['left']) {
     container.scrollTo(Number(Turbolinks.scroll['left']), Number(Turbolinks.scroll['top']));
   }
-  
-  Turbolinks.scroll = {};
 })
 
 const addSleeveFlipper = (sleeve) => {
