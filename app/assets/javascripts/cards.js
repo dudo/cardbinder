@@ -1,4 +1,6 @@
-document.addEventListener("turbolinks:load", function() {
+Turbolinks.scroll = {};
+
+document.addEventListener("turbolinks:load", () => {
 
   // const set_menu = document.querySelector('#select-set-menu')
   // if (set_menu.querySelector('li.active')) {
@@ -76,11 +78,25 @@ document.addEventListener("turbolinks:load", function() {
 
     sleeves.forEach((sleeve) => { addSleeveFlipper(sleeve) })
   }
+
+  const elements = document.querySelectorAll("[data-turbolinks-scroll]");
+  elements.forEach(function(element){
+    container = document.querySelector(element.dataset.turbolinksScroll)
+    element.addEventListener('click', () => {
+      Turbolinks.scroll['top'] = container.scrollTop;
+      Turbolinks.scroll['left'] = container.scrollLeft;
+    });
+  });
+  
+  if (Turbolinks.scroll['top'] || Turbolinks.scroll['left']) {
+    container.scrollTo(Number(Turbolinks.scroll['left']), Number(Turbolinks.scroll['top']));
+  }
+  
+  Turbolinks.scroll = {};
 })
 
-function addSleeveFlipper(sleeve) {
-  flipper = sleeve.querySelector('.flipper');
-  flipper.addEventListener('click', function() {
+const addSleeveFlipper = (sleeve) => {
+  sleeve.querySelector('.flipper').addEventListener('click', () => {
     sleeve.classList.toggle('flipped');
   }, false)
 }

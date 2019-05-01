@@ -1,6 +1,6 @@
 - active = 'active' if @card_set.try(:code) == card_set.try(:code)
-- standard = 'standard' if CardSet::STANDARD.include?(card_set.try(:code))
+- standard = 'Standard' if CardSet::STANDARD.include?(card_set.try(:code))
 - classes = [card_set.type, standard, active].compact
 %li{class: classes.join(' ')}
-  = link_to(card_set_cards_path(card_set), title: [card_set.name, standard&.capitalize].compact.join(' - ')) do
+  = link_to(card_set_cards_path(card_set), class: 'card-set', title: [card_set.name, standard].compact.join(' - '), data: { turbolinks_scroll: '#select-set-menu' }) do
     %i{class: "ss ss-#{card_set.code.downcase}"}
