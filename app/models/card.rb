@@ -73,6 +73,7 @@ class Card
 
   def keywords
     return [] unless text
+
     text.split.map(&:downcase) & EVERGREEN_WORDS
   end
 
@@ -84,6 +85,7 @@ class Card
 
   def related_cards
     return [] unless alternate_info?
+
     card_set.cards.where(:name.in => names)
   end
 
@@ -91,27 +93,34 @@ class Card
     [types, supertypes, subtypes].flatten.compact
   end
 
-  def front
+  def back_name
+    return unless alternate_info?
+
+    names[-1]
+  end
+
+  def front_img
     "#{Rails.configuration.image_host}/#{set_name.downcase}/#{imageName}.jpg"
   end
 
-  def default_back
+  def default_back_img
     "#{Rails.configuration.image_host}/back.jpg"
   end
 
-  def back
-    return default_back unless alternate_info?
-    return default_back if %w(split flip aftermath).include? layout
+  def back_img
+    return default_back_img unless alternate_info?
+    return default_back_img if %w(split flip aftermath).include? layout
 
-    face = card_set.cards.find_by(name: names[-1])
-    meld_side = names.find_index(name) == 0 ? ' bottom' : ' top' if layout == 'meld'
-    "#{Rails.configuration.image_host}/#{set_name.downcase}/#{face.imageName}#{meld_side}.jpg"
+    face = card_set.cards.find_by(name: back_name)
+    meld_side = names.first == name ? ' bottom' : ' top' if layout == 'meld'
+    image = "#{face&.imageName}#{meld_side}".presence || back_name&.downcase
+    "#{Rails.configuration.image_host}/#{set_name.downcase}/#{image}.jpg"
   end
 
   def alternate_info?
     # normal, split, flip, double-faced, token, plane, scheme,
     # phenomenon, leveler, vanguard, meld, aftermath
-    names.try(:many?)
+    names&.many?
   end
 
 end

@@ -17,11 +17,18 @@ html, body {
 }
 
 body {
-  background: url("https://cardbinder.s3.amazonaws.com/imgs/big_five.jpg") 50% 0% fixed;
+  background: url("https://cardbinder.s3.amazonaws.com/imgs/big_five.jpg");
+  background-size: cover;
+  background-attachment: fixed;
   .well {
     background-color: rgba(245,245,245,0.7);
     border: 1px solid rgba(227,227,227,0.7);
   }
+}
+
+.turbolinks-progress-bar {
+  height: 5px;
+  background-color: #f8f5d8;
 }
 
 .debug_dump {

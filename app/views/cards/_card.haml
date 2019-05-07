@@ -9,7 +9,9 @@
 - names = Array.wrap(card.try(:names) || card.name)
 .card{ data: {options: card.options.join(' ')}, id: "multiverse#{card.multiverseid}" }
   .front
-    = image_tag(card.default_back, 'data-src' => card.front, alt: names.join(' - '))
+    %p.card-name= card.name
+    = image_tag(card.default_back_img, 'data-src' => card.front_img, alt: names.join(' - '))
   .back
-    = image_tag(card.back)
+    %p.card-name= card.back_name
+    = image_tag(card.back_img)
 
