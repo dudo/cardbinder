@@ -1,4 +1,10 @@
-Turbolinks.scroll = {};
+if (!localStorage.getItem('scrollCache') || Object.entries(localStorage.getItem('scrollCache')).length === 0) {
+  localStorage.setItem('scrollCache', '{}');
+}
+
+document.addEventListener("turbolinks:render", () => {
+  checkScrollCache();
+});
 
 document.addEventListener("turbolinks:load", () => {
 
@@ -34,13 +40,15 @@ document.addEventListener("turbolinks:load", () => {
   //   }), 10);
   // })
 
+  checkScrollCache();
+  
   const sleeves = document.querySelectorAll('ul.binder li.sleeve')
   if (sleeves.length > 0) {
     const sticky = document.querySelector('.sticky-wrapper')
     const menu = sticky.querySelector('.select')
 
 
-    window.addEventListener('scroll', function() {
+    window.addEventListener('scroll', () => {
       if (sticky.getBoundingClientRect().top <= 0) {
         menu.classList.add('fixed');
       } else {
@@ -49,14 +57,14 @@ document.addEventListener("turbolinks:load", () => {
     }, false)
 
     menu.querySelectorAll('.card-menu-toggle').forEach((toggle) => {
-      toggle.addEventListener('click', function(e) {
+      toggle.addEventListener('click', (e) => {
         e.preventDefault();
         menu.classList.toggle('flipped');
       }, false)
     })
 
     menu.querySelectorAll('a.select-card').forEach((selector) => {
-      selector.addEventListener('click', function(e) {
+      selector.addEventListener('click', (e) => {
         e.preventDefault();
         selector.classList.toggle('selected');
         selector.parentNode.classList.toggle('active');
@@ -73,28 +81,34 @@ document.addEventListener("turbolinks:load", () => {
           }
         });
       }, false)
-
     })
 
     sleeves.forEach((sleeve) => { addSleeveFlipper(sleeve) })
   }
-
-  const elements = document.querySelectorAll("[data-turbolinks-scroll]");
-  elements.forEach(function(element){
-    container = document.querySelector(element.dataset.turbolinksScroll)
-    element.addEventListener('click', () => {
-      Turbolinks.scroll['top'] = container.scrollTop;
-      Turbolinks.scroll['left'] = container.scrollLeft;
-    });
-  });
-  
-  if (Turbolinks.scroll['top'] || Turbolinks.scroll['left']) {
-    container.scrollTo(Number(Turbolinks.scroll['left']), Number(Turbolinks.scroll['top']));
-  }
-})
+});
 
 const addSleeveFlipper = (sleeve) => {
   sleeve.querySelector('.flipper').addEventListener('click', () => {
     sleeve.classList.toggle('flipped');
-  }, false)
+  }, false);
+};
+
+const checkScrollCache = () => {
+  const elements = document.querySelectorAll("[data-turbolinks-scroll]");
+  elements.forEach((element) => {
+    let container = document.querySelector(element.dataset.turbolinksScroll)
+    let scrollCache = JSON.parse(localStorage.getItem('scrollCache'));
+    element.addEventListener('click', () => {
+      scrollCache[element.dataset.turbolinksScroll] = { top: container.scrollTop, left: container.scrollLeft }
+      localStorage.setItem('scrollCache', JSON.stringify(scrollCache));
+    });
+
+    if (scrollCache[element.dataset.turbolinksScroll]) {
+      let left = scrollCache[element.dataset.turbolinksScroll]['left']
+      let top = scrollCache[element.dataset.turbolinksScroll]['top']
+      if (top || left) {
+        container.scrollTo(Number(left), Number(top));
+      };
+    }
+  });
 }

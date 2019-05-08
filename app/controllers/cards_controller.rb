@@ -17,8 +17,9 @@ class CardsController < ApplicationController
 
   def index
     @card_set = CardSet.find(params[:card_set_id])
-    @cards = @card_set.cards.order_by([:imageName])
-    @cards = @cards.reject{ |c| c.alternate_info? && c.name == c.names[-1] }
+    @cards = []
+    # @cards = @card_set.cards.order_by([:imageName])
+    # @cards = @cards.reject{ |c| c.alternate_info? && c.name == c.names[-1] }
   end
 
   def update
