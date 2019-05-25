@@ -8,11 +8,35 @@ if (!localStorage.getItem('filterCache')) {
 
 document.addEventListener("turbolinks:render", () => {
   checkScrollCache();
+  checkFilters();
 });
 
 document.addEventListener("turbolinks:load", () => {
   checkScrollCache();
-  
+  checkFilters();
+});
+
+const checkScrollCache = () => {
+  const elements = document.querySelectorAll("[data-turbolinks-scroll]");
+  elements.forEach((element) => {
+    let container = document.querySelector(element.dataset.turbolinksScroll)
+    let scrollCache = JSON.parse(localStorage.getItem('scrollCache'));
+    element.addEventListener('click', () => {
+      scrollCache[element.dataset.turbolinksScroll] = { top: container.scrollTop, left: container.scrollLeft }
+      localStorage.setItem('scrollCache', JSON.stringify(scrollCache));
+    });
+
+    if (scrollCache[element.dataset.turbolinksScroll]) {
+      let left = scrollCache[element.dataset.turbolinksScroll]['left']
+      let top = scrollCache[element.dataset.turbolinksScroll]['top']
+      if (top || left) {
+        container.scrollTo(Number(left), Number(top));
+      };
+    }
+  });
+}
+
+const checkFilters = () => {
   let filterCache = JSON.parse(localStorage.getItem('filterCache'));
   
   const sleeves = document.querySelectorAll('ul.binder li.sleeve')
@@ -73,30 +97,10 @@ document.addEventListener("turbolinks:load", () => {
 
     sleeves.forEach((sleeve) => { addSleeveFlipper(sleeve) })
   }
-});
+}
 
 const addSleeveFlipper = (sleeve) => {
   sleeve.querySelector('.flipper').addEventListener('click', () => {
     sleeve.classList.toggle('flipped');
   }, false);
 };
-
-const checkScrollCache = () => {
-  const elements = document.querySelectorAll("[data-turbolinks-scroll]");
-  elements.forEach((element) => {
-    let container = document.querySelector(element.dataset.turbolinksScroll)
-    let scrollCache = JSON.parse(localStorage.getItem('scrollCache'));
-    element.addEventListener('click', () => {
-      scrollCache[element.dataset.turbolinksScroll] = { top: container.scrollTop, left: container.scrollLeft }
-      localStorage.setItem('scrollCache', JSON.stringify(scrollCache));
-    });
-
-    if (scrollCache[element.dataset.turbolinksScroll]) {
-      let left = scrollCache[element.dataset.turbolinksScroll]['left']
-      let top = scrollCache[element.dataset.turbolinksScroll]['top']
-      if (top || left) {
-        container.scrollTo(Number(left), Number(top));
-      };
-    }
-  });
-}
