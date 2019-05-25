@@ -2,45 +2,18 @@ if (!localStorage.getItem('scrollCache') || Object.entries(localStorage.getItem(
   localStorage.setItem('scrollCache', '{}');
 }
 
+if (!localStorage.getItem('filterCache')) {
+  localStorage.setItem('filterCache', '[]');
+}
+
 document.addEventListener("turbolinks:render", () => {
   checkScrollCache();
 });
 
 document.addEventListener("turbolinks:load", () => {
-
-  // const set_menu = document.querySelector('#select-set-menu')
-  // if (set_menu.querySelector('li.active')) {
-  //   let x = set_menu.querySelector('li.active').offsetLeft;
-  //   set_menu.scrollLeft = x + 120;
-  // }
-  
-  // set_menu.addEventListener('mouseenter', function(e) {
-  //   if(e.currentTarget.dataset.triggered) return;
-  //   e.currentTarget.dataset.triggered = true;
-  //   const gal = set_menu,
-  //         galW = gal.offsetWidth,
-  //         galSW = gal.scrollWidth,
-  //         wDiff = (galSW / galW) - 1,
-  //         mPadd = 100,
-  //         damp = 20,
-  //         mmAA = galW - (mPadd * 2),
-  //         mmAAr = galW / mmAA;
-  //   let mX = 0,
-  //       mX2 = 0,
-  //       posX = 0;
-
-  //   set_menu.addEventListener('mousemove', function(e) {
-  //     mX = e.pageX - set_menu.parentNode.getBoundingClientRect().left - set_menu.offsetLeft;
-  //     mX2 = Math.min(Math.max(0, mX - mPadd), mmAA) * mmAAr;
-  //   }, false)
-
-  //   return setInterval((function() {
-  //     posX += (mX2 - posX) / damp;
-  //     return gal.scrollLeft = posX * wDiff;
-  //   }), 10);
-  // })
-
   checkScrollCache();
+  
+  let filterCache = JSON.parse(localStorage.getItem('filterCache'));
   
   const sleeves = document.querySelectorAll('ul.binder li.sleeve')
   if (sleeves.length > 0) {
@@ -64,16 +37,31 @@ document.addEventListener("turbolinks:load", () => {
     })
 
     menu.querySelectorAll('a.select-card').forEach((selector) => {
+      // debugger
+      if (filterCache.includes(selector.getAttribute('data-pick'))) {
+        selector.classList.toggle('selected');
+        selector.parentNode.classList.toggle('active');
+      }
+      sleeves.forEach((sleeve) => {
+        const card = sleeve.querySelector('.card');
+        
+        if (filterCache.every((s) => { return card.getAttribute('data-options').split(' ').includes(s) })) {
+          sleeve.style.display = 'inline-block';
+        } else {
+          sleeve.style.display = 'none';
+        }
+      });
       selector.addEventListener('click', (e) => {
         e.preventDefault();
         selector.classList.toggle('selected');
         selector.parentNode.classList.toggle('active');
-        let selected = [];
-        menu.querySelectorAll('a.select-card.selected').forEach((s) => {
-          selected.push(s.getAttribute('data-pick'));
+        selected = [...menu.querySelectorAll('a.select-card.selected')].map((s) => {
+          return s.getAttribute('data-pick')
         })
+        localStorage.setItem('filterCache', JSON.stringify(selected));
         sleeves.forEach((sleeve) => {
           const card = sleeve.querySelector('.card');
+          
           if (selected.every((s) => { return card.getAttribute('data-options').split(' ').includes(s) })) {
             sleeve.style.display = 'inline-block';
           } else {
