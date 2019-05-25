@@ -8,7 +8,18 @@ if (!localStorage.getItem('filterCache')) {
 
 document.addEventListener("turbolinks:render", () => {
   checkScrollCache();
-  checkFilters();
+  const menu = document.querySelector('.select')
+  const filterCache = JSON.parse(localStorage.getItem('filterCache'));
+  
+  menu.querySelectorAll('a.select-card').forEach((selector) => {
+    if (filterCache.includes(selector.getAttribute('data-pick'))) {
+      selector.classList.add('selected');
+      selector.parentNode.classList.add('active');
+    } else {
+      selector.classList.remove('selected');
+      selector.parentNode.classList.remove('active');
+    }
+  });
 });
 
 document.addEventListener("turbolinks:load", () => {
@@ -34,7 +45,7 @@ const checkScrollCache = () => {
       };
     }
   });
-}
+};
 
 const checkFilters = () => {
   let filterCache = JSON.parse(localStorage.getItem('filterCache'));
@@ -61,10 +72,9 @@ const checkFilters = () => {
     })
 
     menu.querySelectorAll('a.select-card').forEach((selector) => {
-      // debugger
       if (filterCache.includes(selector.getAttribute('data-pick'))) {
-        selector.classList.toggle('selected');
-        selector.parentNode.classList.toggle('active');
+        selector.classList.add('selected');
+        selector.parentNode.classList.add('active');
       }
       sleeves.forEach((sleeve) => {
         const card = sleeve.querySelector('.card');
