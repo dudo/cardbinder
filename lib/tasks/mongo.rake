@@ -1,8 +1,8 @@
 namespace :mongo do
 
   def import_mtg_set(doc)
-    return unless %w(core expansion).include?(doc['type'])
-
+    return unless %w(core expansion draft_innovation).include?(doc['type'])
+    
     set = CardSet.where(code: doc['code']).first_or_initialize
     set.name ||= doc['name']
     set.gathererCode = doc['gathererCode'] || doc['magicCardsInfoCode']
@@ -10,7 +10,7 @@ namespace :mongo do
     set.type = doc['type']
     set.block = doc['block']
     set.save
-
+    
     doc['cards'].each do |card|
       c = set.cards.where(name: card['name'], number: card['number']).first_or_initialize
       c.set_code = set.code

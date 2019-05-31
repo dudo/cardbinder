@@ -15,7 +15,7 @@ class CardSet
   index(code: 1)
   index(releaseDate: 1)
 
-  USED_TYPES = %w(core expansion)
+  USED_TYPES = %w(core expansion draft_innovation)
   SKIP = %w(TSB)
   STANDARD = %w(XLN RIX DOM M19 GRN RNA WAR) # http://whatsinstandard.com/
 
