@@ -5,6 +5,14 @@
     <div class="col-lg-8 col-lg-offset-2 well">
       <h1 class='col-lg-offset-2 text-center'>Sign in</h1>
       <%= form_for :session, url: sessions_path, html: {class: "form-horizontal", role: "form"} do |f| %>
+        <% if flash.present? %>
+          <div id="error_explanation">
+            <div class="alert alert-error">
+              <%= flash.to_h.values.first %>
+            </div>
+          </div>
+        <% end %>
+        
         <div class="form-group">
           <%= f.label :email, class: "col-lg-2 control-label" %>
           <div class="col-lg-8">
