@@ -109,7 +109,7 @@ class Card
 
   def back_img
     return default_back_img unless alternate_info?
-    return default_back_img if %w(split flip aftermath).include? layout
+    return default_back_img if %w(split flip aftermath adventure).include? layout
 
     face = card_set.cards.find_by(name: back_name)
     meld_side = names.first == name ? ' bottom' : ' top' if layout == 'meld'
@@ -119,7 +119,7 @@ class Card
 
   def alternate_info?
     # normal, split, flip, double-faced, token, plane, scheme,
-    # phenomenon, leveler, vanguard, meld, aftermath
+    # phenomenon, leveler, vanguard, meld, aftermath, adventure
     names&.many?
   end
 
