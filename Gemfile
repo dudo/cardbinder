@@ -3,8 +3,8 @@ source 'https://rubygems.org'
 ruby '~> 2.6.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails'
-# gem 'sprockets', '~> 2.11.3'
+gem 'rails', '< 6.0.0'
+gem 'sprockets', '< 4.0.0'
 
 # Use mongoDB as the database... no more Active Record
 # gem 'sqlite3'

@@ -113,16 +113,16 @@ class Card
     names&.many?
   end
 
+  def all_types
+    [types, supertypes, subtypes].flatten.compact
+  end
+
   private
 
   def related_cards
     return [] unless alternate_info?
 
     card_set.cards.where(:name.in => names)
-  end
-
-  def all_types
-    [types, supertypes, subtypes].flatten.compact
   end
 
   def img_url(img)
