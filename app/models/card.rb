@@ -83,16 +83,6 @@ class Card
     options.flatten.map(&:presence).compact.map{ |o| o.downcase.strip }.uniq
   end
 
-  def related_cards
-    return [] unless alternate_info?
-
-    card_set.cards.where(:name.in => names)
-  end
-
-  def all_types
-    [types, supertypes, subtypes].flatten.compact
-  end
-
   def back_name
     return unless alternate_info?
 
@@ -100,7 +90,7 @@ class Card
   end
 
   def front_img
-    "#{Rails.configuration.image_host}/#{set_name.downcase}/#{imageName}.jpg"
+    img_url(imageName)
   end
 
   def default_back_img
@@ -114,7 +104,7 @@ class Card
     face = card_set.cards.find_by(name: back_name)
     meld_side = names.first == name ? ' bottom' : ' top' if layout == 'meld'
     image = "#{face&.imageName}#{meld_side}".presence || back_name&.downcase
-    "#{Rails.configuration.image_host}/#{set_name.downcase}/#{image}.jpg"
+    img_url(image)
   end
 
   def alternate_info?
@@ -123,4 +113,19 @@ class Card
     names&.many?
   end
 
+  private
+
+  def related_cards
+    return [] unless alternate_info?
+
+    card_set.cards.where(:name.in => names)
+  end
+
+  def all_types
+    [types, supertypes, subtypes].flatten.compact
+  end
+
+  def img_url(img)
+    "#{Rails.configuration.image_host}/#{name.downcase.gsub(/[:]/, '')}/#{img}.jpg"
+  end
 end

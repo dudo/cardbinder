@@ -17,7 +17,7 @@ class CardSet
 
   USED_TYPES = %w(core expansion draft_innovation)
   SKIP = %w(TSB)
-  STANDARD = %w(XLN RIX DOM M19 GRN RNA WAR) # http://whatsinstandard.com/
+  STANDARD = %w(GRN RNA WAR M20 ELD THB) # http://whatsinstandard.com/
 
   # this is used for the header menu, and almost always available
   def self.history
