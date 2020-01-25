@@ -126,6 +126,6 @@ class Card
   end
 
   def img_url(img)
-    "#{Rails.configuration.image_host}/#{name.downcase.gsub(/[:]/, '')}/#{img}.jpg"
+    "#{Rails.configuration.image_host}/#{set_name.downcase.gsub(/[:]/, '')}/#{img}.jpg"
   end
 end
