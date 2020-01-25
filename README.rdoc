@@ -9,6 +9,8 @@ Ensure images are lower case
 
 If lands, or cards with multiple images aren't referenced, properly
 
-    CardSet.last.cards.where(name: 'Plains').each_with_index do |c, i|
-      c.update_attribute :imageName, "#{c.imageName}#{i + 1}"
+    %w(Plains Island Swamp Mountain Forest).each do |land|
+        CardSet.last.cards.where(name: land).each_with_index do |c, i|
+        c.update_attribute :imageName, "#{c.imageName}#{i + 1}"
+        end
     end
